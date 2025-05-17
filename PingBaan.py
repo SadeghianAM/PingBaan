@@ -4,7 +4,6 @@ import ttkbootstrap as ttkb
 from ttkbootstrap.constants import *
 import threading
 import json
-import time
 from ping3 import ping
 import validators
 from PIL import Image, ImageDraw
@@ -14,7 +13,6 @@ from plyer import notification
 import concurrent.futures
 import logging
 import requests
-import os
 from collections import deque
 import unittest
 
