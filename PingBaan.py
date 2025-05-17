@@ -42,7 +42,9 @@ LANGUAGES = {
         "tray_show": "Show PingBaan",
         "tray_exit": "Exit",
         "timeout_alert": "Site {site} has been timing out for over 10 seconds.",
-        "toggle_ping": "Stop Ping"
+        "toggle_ping": "Stop Ping",
+        "start_ping": "Start Ping",  # کلید جدید
+        "stopped": "Stopped"  # کلید جدید
     },
     "fa": {
         "title": "پینگ‌بان",
@@ -56,7 +58,9 @@ LANGUAGES = {
         "tray_show": "نمایش پینگ‌بان",
         "tray_exit": "خروج",
         "timeout_alert": "سایت {site} بیش از ۱۰ ثانیه تایم‌اوت شده است.",
-        "toggle_ping": "توقف پینگ"
+        "toggle_ping": "توقف پینگ",
+        "start_ping": "شروع پینگ",  # کلید جدید
+        "stopped": "متوقف شده"  # کلید جدید
     }
 }
 
@@ -238,7 +242,7 @@ class PingBaanApp:
         # به‌روزرسانی فریم ورودی
         self.site_label.configure(text=self.texts["site_label"])
         self.add_button.configure(text=self.texts["add_site"])
-        self.toggle_button.configure(text=self.texts["toggle_ping"] if self.pinging else "Start Ping" if self.language == "en" else "شروع پینگ")
+        self.toggle_button.configure(text=self.texts["toggle_ping"] if self.pinging else self.texts["start_ping"])
 
         # به‌روزرسانی فریم تنظیمات
         self.settings_frame.configure(text=self.texts["settings"])
@@ -266,14 +270,14 @@ class PingBaanApp:
     def toggle_pinging(self):
         self.pinging = not self.pinging
         self.toggle_button.configure(
-            text=self.texts["toggle_ping"] if self.pinging else "Start Ping" if self.language == "en" else "شروع پینگ",
+            text=self.texts["toggle_ping"] if self.pinging else self.texts["start_ping"],
             bootstyle=WARNING if self.pinging else SUCCESS
         )
         if not self.pinging:
             for site in self.sites:
                 if site in self.site_frames:
                     result_label, trend_label, avg_label = self.site_frames[site][1:4]
-                    result_label.configure(text=f"{site}: Paused", style="Warning.TLabel")
+                    result_label.configure(text=f"{site}: {self.texts['stopped']}", style="Warning.TLabel")
                     trend_label.configure(text="", style="Warning.TLabel")
                     avg_label.configure(text="", style="Warning.TLabel")
 
